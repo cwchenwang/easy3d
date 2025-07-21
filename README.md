@@ -26,7 +26,7 @@ for i in range(10):
 
 # Visualize the camera poses
 camera_viewer = CameraViewer()
-camera_viewer.add_camera(poses, fov=30)
+camera_viewer.add_cameras(poses, fov=30)
 camera_viewer.run()
 ```
 

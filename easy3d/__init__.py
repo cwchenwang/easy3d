@@ -1,6 +1,6 @@
 """Easy3D - A simple 3D utility package."""
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 __author__ = "Chen Wang"
 __email__ = "chwangthu@gmail.com"
 

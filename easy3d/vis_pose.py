@@ -8,12 +8,26 @@ class CameraViewer:
         self.server = viser.ViserServer()
     
     def add_cameras(self, c2ws, fov, images=None, **kwargs):
+        """
+        Add cameras to the scene.
+        Args:
+            c2ws: List of 4x4 camera-to-world matrices (OpenCV convention: x right, y down, z forward).
+            fov: Field of view in degrees.
+            images: List of images to display.
+            **kwargs: Additional keyword arguments.
+        """
         camera_positions = []
         camera_rotations = []
         for c2w in c2ws:
             T_world_camera = viser_tf.SE3.from_matrix(c2w)
             camera_positions.append(T_world_camera.translation())
             camera_rotations.append(T_world_camera.rotation().wxyz)
+        
+        self.server.scene.add_batched_axes(
+            "/axes",
+            batched_wxyzs=camera_rotations,
+            batched_positions=camera_positions,
+        )
 
         for i, (pos, rot) in enumerate(zip(camera_positions, camera_rotations)):
             self.server.scene.add_camera_frustum(
